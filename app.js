@@ -212,17 +212,119 @@ states = [
 ages = ["<10", "10-19", "20-29", "30-39", "40-49", "50-59", "60-69", "70-79", "≥80"]
 stateages = ages.flatMap(age => states.map(d => ({state: d.name, age, population: d[age]}))) 
 
-chart = GroupedBarChart(stateages, {
-  x: d => d.state,
-  y: d => d.population / 1e6,
-  z: d => d.age,
-  xDomain: d3.groupSort(stateages, D => d3.sum(D, d => -d.population), d => d.state).slice(0, 6), // top 6
-  yLabel: "↑ Population (millions)",
-  zDomain: ages,
-  colors: d3.schemeSpectral[ages.length],
-  width: 500,
-  height: 500
+airports = [
+  {
+      "name": "Denemarken, Kopenhagen/Kastrup",
+      "2012": 822723,
+      "2013": 805925,
+      "2014": 888084,
+      "2015": 913056,
+      "2016": 974884,
+      "2017": 1033327,
+      "2018": 1090783,
+      "2019": 1110441,
+      "2020": 353378,
+      "2021": 398847,
+      "2022": 972981
+  },
+  {
+      "name": "Frankrijk, Parijs/Charles de Gaulle",
+      "2012": 1124252,
+      "2013": 1126680,
+      "2014": 1159106,
+      "2015": 1149168,
+      "2016": 1182258,
+      "2017": 1263470,
+      "2018": 1238016,
+      "2019": 1239789,
+      "2020": 494116,
+      "2021": 574320,
+      "2022": 909955
+  },
+  {
+      "name": "Ierland, Dublin",
+      "2012": 483968,
+      "2013": 497491,
+      "2014": 513741,
+      "2015": 608122,
+      "2016": 936784,
+      "2017": 1080715,
+      "2018": 1194651,
+      "2019": 1212587,
+      "2020": 365265,
+      "2021": 396492,
+      "2022": 1003177
+  },
+  {
+      "name": "Spanje, Barcelona",
+      "2012": 1250144,
+      "2013": 1186682,
+      "2014": 1217916,
+      "2015": 1202353,
+      "2016": 1305331,
+      "2017": 1361334,
+      "2018": 1418714,
+      "2019": 1382607,
+      "2020": 377835,
+      "2021": 608458,
+      "2022": 1204862
+  },
+  {
+      "name": "Spanje, Madrid/Barajas",
+      "2012": 1030188,
+      "2013": 748426,
+      "2014": 840215,
+      "2015": 925200,
+      "2016": 992114,
+      "2017": 1021861,
+      "2018": 1035686,
+      "2019": 1139999,
+      "2020": 359584,
+      "2021": 458560,
+      "2022": 972005
+  },
+  {
+      "name": "Ver. Koninkrijk, Londen/Heathrow",
+      "2012": 1429378,
+      "2013": 1443670,
+      "2014": 1486533,
+      "2015": 1586999,
+      "2016": 1616621,
+      "2017": 1688997,
+      "2018": 1745757,
+      "2019": 1747788,
+      "2020": 525448,
+      "2021": 350153,
+      "2022": 1140162
+  }
+]
+years = ["2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019","2020", "2021", "2022"]
+airportyears = years.flatMap(year => airports.map(d => ({airport: d.name, year, population: d[year]}))) 
+
+
+chart = GroupedBarChart(airportyears, {
+  x: d => d.airport,
+  y: d => d.population,
+  z: d => d.year,
+  xDomain: d3.groupSort(airportyears, D => d3.sum(D, d => -d.population), d => d.airport).slice(0, 6), // top 6
+  yLabel: "↑ passager (millions)",
+  zDomain: years,
+  colors: d3.schemeSpectral[years.length],
+  width: 800,
+  height: 800
 })
+
+// chart = GroupedBarChart(stateages, {
+//   x: d => d.state,
+//   y: d => d.population / 1e6,
+//   z: d => d.age,
+//   xDomain: d3.groupSort(stateages, D => d3.sum(D, d => -d.population), d => d.state).slice(0, 6), // top 6
+//   yLabel: "↑ Population (millions)",
+//   zDomain: ages,
+//   colors: d3.schemeSpectral[ages.length],
+//   width: 500,
+//   height: 500
+// })
 
 const groupedContainer = document.getElementById('chartContainer');
 groupedContainer.appendChild(chart);
