@@ -70,7 +70,7 @@ for airport_data in airport_volume_list:
 json_data = json.dumps(airport_list, default=serialize_airport)
 
 # Specify the file path
-file_path = 'output.json'
+file_path = 'airport-data.json'
 
 # Write JSON string to a file
 with open(file_path, 'w') as file:
